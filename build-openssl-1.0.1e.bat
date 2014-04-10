@@ -33,21 +33,21 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
 ::
 :: Set the version of Visual Studio. This will just add a suffix to the string
 :: of your directories to avoid mixing them up.
-SET VS_VERSION=2012
+SET VS_VERSION=2010
 
 :: Set this to the directory that contains vcvarsall.bat file of the 
 :: VC Visual Studio version you want to use for building ICU.
 :: MSVC2012 is an environment variable pointing to the directory you installed VS, i.e. D:\dev\msvc2012
 :: You can always replace it with the actual directory
-SET VISUAL_STUDIO_VC=D:\dev\msvc!VS_VERSION!\VC
+SET VISUAL_STUDIO_VC=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC
 
 :: Set CYGWIN_DIR to the location of your Cygwin root ( one level up from /bin )
 :: I use Cygwin Portable (http://symbiosoft.net/projects/cygwin-portable)
 :: Make sure you install the following packages:
 ::  p7zip, md5sum, patch
-SET CYGWIN_DIR=C:\Cygwin
+SET CYGWIN_DIR=C:\Cygwin64
 
-SET PERL_ROOT=D:\dev\perl
+SET PERL_ROOT=C:\Perl
 
 rem ========================================================================================================
 
@@ -83,9 +83,9 @@ SET BUILD_PROJECT=openssl
 :: Set this to the version of the project you are building
 SET PROJECT_VERSION=1.0.1e
 
-SET PROJECT_SRC_DIR=E:\opensource\!BUILD_PROJECT!-!PROJECT_VERSION!
+SET PROJECT_SRC_DIR=F:\!BUILD_PROJECT!-!PROJECT_VERSION!
 
-SET PROJECT_INSTALL_DIR=E:\dist\!BUILD_PROJECT!-dist-!PROJECT_VERSION!-vs!VS_VERSION!
+SET PROJECT_INSTALL_DIR=C:\!BUILD_PROJECT!-dist-!PROJECT_VERSION!-vs!VS_VERSION!
 
 rem ========================================================================================================
 rem == PLEASE DO NOT EDIT BELOW THIS LINE
