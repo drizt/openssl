@@ -55,6 +55,8 @@
 #
 
 my $debug=0;
+my $debug_lib=0;
+my $static_lib=0;
 
 my $crypto_num= "util/libeay.num";
 my $ssl_num=    "util/ssleay.num";
@@ -146,6 +148,8 @@ my $zlib;
 foreach (@ARGV, split(/ /, $options))
 	{
 	$debug=1 if $_ eq "debug";
+	$debug_lib=1 if $_ eq "debug_lib";
+	$static_lib=1 if $_ eq "static_lib";
 	$W32=1 if $_ eq "32";
 	$W16=1 if $_ eq "16";
 	if($_ eq "NT") {
@@ -178,6 +182,7 @@ foreach (@ARGV, split(/ /, $options))
 		$do_crypto=1;
 		$libname=$_;
 	}
+
 	$no_static_engine=1 if $_ eq "no-static-engine";
 	$no_static_engine=0 if $_ eq "enable-static-engine";
 	$do_update=1 if $_ eq "update";
@@ -247,6 +252,7 @@ if (!$libname) {
 	}
 }
 
+	
 # If no platform is given, assume WIN32
 if ($W32 + $W16 + $VMS + $OS2 == 0) {
 	$W32 = 1;
@@ -1300,6 +1306,19 @@ EOO
 		  # Vendor field can't contain colon, drat; so we omit http://
 		  $description = "\@#$http_vendor:$version#\@$what; DLL for library $name.  Build for EMX -Zmtd";
 		}
+		
+$libsuffix="";
+if ($static_lib) {
+	$libsuffix="MT";
+} else {
+	$libsuffix="MD";
+}
+
+if ($debug_lib) {
+	$libsuffix=$libsuffix."d";
+}
+	
+$libname=$libname.$libsuffix;
 
 	print OUT <<"EOF";
 ;

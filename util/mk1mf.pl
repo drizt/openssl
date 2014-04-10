@@ -496,7 +496,7 @@ FIPSLINK=\$(PERL) \$(FIPSDIR)${o}bin${o}fipslink.pl
 # You should not need to touch anything below this point
 ######################################################
 
-E_EXE=openssl
+E_EXE=openssl$libsuffix
 SSL=$ssl
 CRYPTO=$crypto
 
@@ -1144,6 +1144,8 @@ sub read_options
 		"shlib" => \$shlib,
 		"dll" => \$shlib,
 		"shared" => 0,
+		"debug_lib" => \$debug_lib,
+		"static_lib" => \$static_lib,
 		"no-sctp" => 0,
 		"no-gmp" => 0,
 		"no-rfc3779" => 0,

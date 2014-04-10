@@ -15,6 +15,21 @@ else
 	{
 	$crypto="libeay32";
 	}
+	
+
+$libsuffix="";
+if ($static_lib) {
+	$libsuffix="MT";
+} else {
+	$libsuffix="MD";
+}
+
+if ($debug_lib) {
+	$libsuffix=$libsuffix."d";
+}
+	
+$ssl=$ssl.$libsuffix;
+$crypto=$crypto.$libsuffix;
 
 $o='\\';
 $cp='$(PERL) util/copy.pl';
@@ -148,8 +163,8 @@ else
 	}
 
 # generate symbols.pdb unconditionally
-$app_cflag.=" /Zi /Fd\$(TMP_D)/app";
-$lib_cflag.=" /Zi /Fd\$(TMP_D)/lib";
+$app_cflag.=" /Zi /Fd\$(TMP_D)/app".$libsuffix;
+$lib_cflag.=" /Zi /Fd\$(TMP_D)/lib".$libsuffix;
 $lflags.=" /debug";
 
 $obj='.obj';
@@ -338,7 +353,7 @@ sub do_link_rule
 	my($target,$files,$dep_libs,$libs,$standalone)=@_;
 	local($ret,$_);
 	$file =~ s/\//$o/g if $o ne '/';
-	$n=&bname($targer);
+	$n=&bname($target);
 	$ret.="$target: $files $dep_libs\n";
 	if ($standalone == 1)
 		{
